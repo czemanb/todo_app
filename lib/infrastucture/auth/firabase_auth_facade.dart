@@ -62,7 +62,7 @@ class FirebaseAuthFacade implements IAuthFacade {
     try {
       final googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
-        return left(AuthFailure.cancelledByUser());
+        return left(const AuthFailure.cancelledByUser());
       }
 
       final googleAuthentication = await googleUser.authentication;
@@ -72,9 +72,8 @@ class FirebaseAuthFacade implements IAuthFacade {
          idToken: googleAuthentication.idToken,
       );
         
-      return _firebaseAuth
-          .signInWithCredential(authCredential)
-          .then((r) => right(unit));
+      await _firebaseAuth.signInWithCredential(authCredential);
+      return right(unit);
     } on PlatformException catch (_) {
       return left(const AuthFailure.serverError());
     }
