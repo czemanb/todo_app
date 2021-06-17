@@ -7,8 +7,7 @@ import 'package:dartz/dartz.dart';
 import 'package:todo_app/domain/auth/i_auth_facade.dart';
 import 'package:todo_app/domain/auth/value_objects.dart';
 
-@lazySingleton
-@Injectable(as: IAuthFacade)
+@LazySingleton(as: IAuthFacade)
 class FirebaseAuthFacade implements IAuthFacade {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
