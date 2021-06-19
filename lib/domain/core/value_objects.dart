@@ -11,14 +11,19 @@ abstract class ValueObject<T> {
   Either<ValueFailure<T>, T> get value;
 
 
-   T getOrCrash() {
-    return value.fold((f) => throw UnexpectedValueError(f), id);
+  T getOrCrash() => value.fold((f) => throw UnexpectedValueError(f), id);
+ 
+
+  Either<ValueFailure<dynamic>, Unit> get failureOrUnit {
+    return value.fold(
+      (l) => left(l),
+      (r) => right(unit));
   }
   
   bool isValid() => value.isRight();
 
   @override
-  bool operator ==(Object o) {
+  bool operator == (Object o) {
     if (identical(this, o)) return true;
     return o is ValueObject<T> && o.value == value;
   }

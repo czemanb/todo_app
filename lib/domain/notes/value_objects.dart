@@ -29,7 +29,6 @@ class TodoName extends ValueObject<String> {
   static const maxLength = 30;
 
   factory TodoName(String input) {
-    assert(input != null);
     return TodoName._(
       validateMaxStringLength(input, maxLength)
           .flatMap(validateNotEmpty)
